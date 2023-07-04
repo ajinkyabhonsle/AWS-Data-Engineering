@@ -1,0 +1,39 @@
+{
+  "name" : "Customer Landing to Trusted",
+  "description" : "",
+  "role" : "arn:aws:iam::474068628779:role/my-glue-service-role",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-474068628779-us-east-1/scripts/Customer Landing to Trusted.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-474068628779-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-474068628779-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://stedi-aj/customer_landing/customer-keep-1655293787679.json\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"S3 bucket\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"customerName\",\"Type\":\"string\"},{\"Name\":\"email\",\"Type\":\"string\"},{\"Name\":\"phone\",\"Type\":\"string\"},{\"Name\":\"birthDay\",\"Type\":\"string\"},{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"registrationDate\",\"Type\":\"bigint\"},{\"Name\":\"lastUpdateDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithResearchAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithPublicAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithFriendsAsOfDate\",\"Type\":\"bigint\"}]}],\"Paths\":[\"s3://stedi-aj/customer_landing/\"],\"Recurse\":true}},\"node-1688511827760\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"json\",\"Inputs\":[\"node-1688511469862\"],\"Name\":\"Customer Trusted Zone\",\"PartitionKeys\":[],\"Path\":\"s3://stedi-aj/customertrusted/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1688511469862\":{\"Filter\":{\"Filters\":[{\"Negated\":true,\"Operation\":\"EQ\",\"Values\":[{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"shareWithResearchAsOfDate\"]},{\"Type\":\"CONSTANT\",\"Value\":[\"0\"]}]}],\"Inputs\":[\"node-1\"],\"LogicalOperator\":\"AND\",\"Name\":\"PrivacyFilter\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "Nanodegree-Project_STEDI-Human-Balance-Analytics",
+    "branch" : "main",
+    "folder" : "Customer Landing to Trusted"
+  }
+}
