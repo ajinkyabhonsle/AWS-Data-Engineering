@@ -1,0 +1,39 @@
+{
+  "name" : "Customer Curated",
+  "description" : "",
+  "role" : "arn:aws:iam::474068628779:role/my-glue-service-role",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-474068628779-us-east-1/scripts/Customer Curated.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-474068628779-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-474068628779-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1688586557604\":{\"DropFields\":{\"Inputs\":[\"node-1688586227373\"],\"Name\":\"Drop Fields\",\"Paths\":[[\"timeStamp\"],[\"serialNumber\"],[\"shareWithPublicAsOfDate\"],[\"birthDay\"],[\"registrationDate\"],[\"shareWithResearchAsOfDate\"],[\"customerName\"],[\"email\"],[\"lastUpdateDate\"],[\"phone\"],[\"shareWithFriendsAsOfDate\"]]}},\"node-1688586148416\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://stedi-aj/customertrusted/run-1688512160456-part-r-00000\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Amazon S3\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"shareWithPublicAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"birthDay\",\"Type\":\"string\"},{\"Name\":\"registrationDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithResearchAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"customerName\",\"Type\":\"string\"},{\"Name\":\"email\",\"Type\":\"string\"},{\"Name\":\"lastUpdateDate\",\"Type\":\"bigint\"},{\"Name\":\"phone\",\"Type\":\"string\"},{\"Name\":\"shareWithFriendsAsOfDate\",\"Type\":\"bigint\"}]}],\"Paths\":[\"s3://stedi-aj/customertrusted/\"],\"Recurse\":true}},\"node-1688586227373\":{\"Join\":{\"Columns\":[{\"From\":\"node-1\",\"Keys\":[[\"user\"]]},{\"From\":\"node-1688586148416\",\"Keys\":[[\"email\"]]}],\"Inputs\":[\"node-1\",\"node-1688586148416\"],\"JoinType\":\"equijoin\",\"Name\":\"Customer Privacy Filter\"}},\"node-1\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://stedi-aj/accelerometer_landing/accelerometer-1655296678763.json\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"S3 bucket\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"user\",\"Type\":\"string\"},{\"Name\":\"timeStamp\",\"Type\":\"bigint\"},{\"Name\":\"x\",\"Type\":\"double\"},{\"Name\":\"y\",\"Type\":\"double\"},{\"Name\":\"z\",\"Type\":\"double\"}]}],\"Paths\":[\"s3://stedi-aj/accelerometer_landing/\"],\"Recurse\":true}},\"node-3\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"json\",\"Inputs\":[\"node-1688586557604\"],\"Name\":\"S3 bucket\",\"PartitionKeys\":[],\"Path\":\"s3://stedi-aj/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "Nanodegree-Project_STEDI-Human-Balance-Analytics",
+    "branch" : "main",
+    "folder" : "Accelerometer Landing Trusted"
+  }
+}
