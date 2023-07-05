@@ -42,13 +42,32 @@ CustomerPrivacyFilter_node1688586227373 = Join.apply(
     transformation_ctx="CustomerPrivacyFilter_node1688586227373",
 )
 
-# Script generated for node Accelerometer Trusted
-AccelerometerTrusted_node3 = glueContext.write_dynamic_frame.from_options(
+# Script generated for node Drop Fields
+DropFields_node1688586557604 = DropFields.apply(
     frame=CustomerPrivacyFilter_node1688586227373,
+    paths=[
+        "timeStamp",
+        "serialNumber",
+        "shareWithPublicAsOfDate",
+        "birthDay",
+        "registrationDate",
+        "shareWithResearchAsOfDate",
+        "customerName",
+        "email",
+        "lastUpdateDate",
+        "phone",
+        "shareWithFriendsAsOfDate",
+    ],
+    transformation_ctx="DropFields_node1688586557604",
+)
+
+# Script generated for node S3 bucket
+S3bucket_node3 = glueContext.write_dynamic_frame.from_options(
+    frame=DropFields_node1688586557604,
     connection_type="s3",
     format="json",
     connection_options={"path": "s3://stedi-aj/", "partitionKeys": []},
-    transformation_ctx="AccelerometerTrusted_node3",
+    transformation_ctx="S3bucket_node3",
 )
 
 job.commit()
