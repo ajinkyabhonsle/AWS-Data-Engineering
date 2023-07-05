@@ -1,0 +1,39 @@
+{
+  "name" : "Step Trainer Trusted",
+  "description" : "",
+  "role" : "arn:aws:iam::474068628779:role/my-glue-service-role",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-474068628779-us-east-1/scripts/Step Trainer Trusted.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-474068628779-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-474068628779-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1688594930662\":{\"ApplyMapping\":{\"Inputs\":[\"node-1688594877006\"],\"Mapping\":[{\"Dropped\":false,\"FromPath\":[\"sensorReadingTime\"],\"FromType\":\"bigint\",\"ToKey\":\"sensorReadingTime\",\"ToType\":\"long\"},{\"Dropped\":false,\"FromPath\":[\"serialNumber\"],\"FromType\":\"string\",\"ToKey\":\"right_serialNumber\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"distanceFromObject\"],\"FromType\":\"int\",\"ToKey\":\"right_distanceFromObject\",\"ToType\":\"int\"}],\"Name\":\"Renamed keys for Join\"}},\"node-1688595088017\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"json\",\"Inputs\":[\"node-1688594901339\"],\"Name\":\"Step Trainer Trusted\",\"PartitionKeys\":[],\"Path\":\"s3://stedi-aj/step_trainer_trusted/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://stedi-aj/accelerometer_trusted_2/run-1688594755344-part-r-00000\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Accelerometer Trusted\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"z\",\"Type\":\"double\"},{\"Name\":\"timeStamp\",\"Type\":\"bigint\"},{\"Name\":\"birthDay\",\"Type\":\"string\"},{\"Name\":\"shareWithPublicAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithResearchAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"registrationDate\",\"Type\":\"bigint\"},{\"Name\":\"customerName\",\"Type\":\"string\"},{\"Name\":\"user\",\"Type\":\"string\"},{\"Name\":\"y\",\"Type\":\"double\"},{\"Name\":\"x\",\"Type\":\"double\"},{\"Name\":\"email\",\"Type\":\"string\"},{\"Name\":\"lastUpdateDate\",\"Type\":\"bigint\"},{\"Name\":\"phone\",\"Type\":\"string\"},{\"Name\":\"shareWithFriendsAsOfDate\",\"Type\":\"bigint\"}]}],\"Paths\":[\"s3://stedi-aj/accelerometer_trusted_2/\"],\"Recurse\":true}},\"node-1688594901339\":{\"Join\":{\"Columns\":[{\"From\":\"node-1\",\"Keys\":[[\"serialNumber\"]]},{\"From\":\"node-1688594930662\",\"Keys\":[[\"right_serialNumber\"]]}],\"Inputs\":[\"node-1\",\"node-1688594930662\"],\"JoinType\":\"equijoin\",\"Name\":\"Join\"}},\"node-1688594877006\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://stedi-aj/step_trainer_landing/step_trainer-1655296678763.json\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Step Trainer\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"sensorReadingTime\",\"Type\":\"bigint\"},{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"distanceFromObject\",\"Type\":\"int\"}]}],\"Paths\":[\"s3://stedi-aj/step_trainer_landing/\"],\"Recurse\":true}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "Nanodegree-Project_STEDI-Human-Balance-Analytics",
+    "branch" : "main",
+    "folder" : "Step Trainer Trusted"
+  }
+}
