@@ -1,0 +1,39 @@
+{
+  "name" : "machine_learning_curated",
+  "description" : "",
+  "role" : "arn:aws:iam::474068628779:role/my-glue-service-role",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-474068628779-us-east-1/scripts/machine_learning_curated.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-474068628779-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-474068628779-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://stedi-aj/step_trainer_trusted2/run-1688598726037-part-r-00000\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Step Trainer Trusted\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"z\",\"Type\":\"double\"},{\"Name\":\"timeStamp\",\"Type\":\"bigint\"},{\"Name\":\"birthDay\",\"Type\":\"string\"},{\"Name\":\"right_distanceFromObject\",\"Type\":\"int\"},{\"Name\":\"shareWithResearchAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"registrationDate\",\"Type\":\"bigint\"},{\"Name\":\"customerName\",\"Type\":\"string\"},{\"Name\":\"sensorReadingTime\",\"Type\":\"bigint\"},{\"Name\":\"user\",\"Type\":\"string\"},{\"Name\":\"y\",\"Type\":\"double\"},{\"Name\":\"shareWithFriendsAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"right_serialNumber\",\"Type\":\"string\"},{\"Name\":\"x\",\"Type\":\"double\"},{\"Name\":\"email\",\"Type\":\"string\"},{\"Name\":\"lastUpdateDate\",\"Type\":\"bigint\"},{\"Name\":\"phone\",\"Type\":\"string\"},{\"Name\":\"shareWithPublicAsOfDate\",\"Type\":\"bigint\"}]}],\"Paths\":[\"s3://stedi-aj/step_trainer_trusted2/\"],\"Recurse\":true}},\"node-1688597760168\":{\"DropFields\":{\"Inputs\":[\"node-1\"],\"Name\":\"Drop Fields\",\"Paths\":[[\"birthDay\"],[\"shareWithResearchAsOfDate\"],[\"registrationDate\"],[\"customerName\"],[\"user\"],[\"email\"],[\"lastUpdateDate\"],[\"phone\"],[\"right_serialNumber\"],[\"shareWithPublicAsOfDate\"],[\"shareWithFriendsAsOfDate\"]]}},\"node-3\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"json\",\"Inputs\":[\"node-1688597741382\"],\"Name\":\"machine_learning_curated\",\"PartitionKeys\":[],\"Path\":\"s3://stedi-aj/machine_learning_curated/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1688597741382\":{\"Aggregate\":{\"Aggs\":[{\"AggFunc\":\"sum\",\"Column\":[\"right_distanceFromObject\"]}],\"Groups\":[[\"timeStamp\"],[\"serialNumber\"],[\"z\"],[\"sensorReadingTime\"],[\"y\"],[\"x\"]],\"Inputs\":[\"node-1688597760168\"],\"Name\":\"Aggregate\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "Nanodegree-Project_STEDI-Human-Balance-Analytics",
+    "branch" : "main",
+    "folder" : "machine_learning_curated"
+  }
+}
